@@ -153,20 +153,20 @@
 			  });
 		  });
 		  // Object 5
-		//   const mtlLoader5 = new MTLLoader();
-  		// 	mtlLoader5.load('models/obj/Small Tropical Island/Small_Tropical_Island.mtl', (mtlParseResult5) => {
-        //     const materials5 =  MtlObjBridge.addMaterialsFromMtlLoader(mtlParseResult5);
-        //     materials5.polygonOffset = true;
-        //     materials5.polygonOffsetFactor = -0.1;
-		// 	const objLoader5 = new OBJLoader2();
-		// 	objLoader5.addMaterials(materials5);
-    	// 	objLoader5.load('models/obj/Small Tropical Island/Small Tropical Island.obj', (root5) => {
-		// 		root5.scale.set(10,10,10);
-		// 		root5.position.set(40000,-30,0);
-		// 		mesh5 = root5;
-		// 		scene.add(root5);
-		// 	  });
-		//   });
+		  const mtlLoader5 = new MTLLoader();
+  			mtlLoader5.load('models/obj/Small Tropical Island/Small_Tropical_Island.mtl', (mtlParseResult5) => {
+            const materials5 =  MtlObjBridge.addMaterialsFromMtlLoader(mtlParseResult5);
+            materials5.polygonOffset = true;
+            materials5.polygonOffsetFactor = -0.1;
+			const objLoader5 = new OBJLoader2();
+			objLoader5.addMaterials(materials5);
+    		objLoader5.load('models/obj/Small Tropical Island/Small Tropical Island.obj', (root5) => {
+				root5.scale.set(10,10,10);
+				root5.position.set(30000,-30,0);
+				mesh5 = root5;
+				scene.add(root5);
+			  });
+		  });
 		}
 
 		
@@ -256,7 +256,7 @@
                 } );
         
                  gltf3.scene.scale.set(60,60,60)
-                 gltf3.scene.position.set(20000,0,0);
+                 gltf3.scene.position.set(30000,0,5000);
         
                 scene.add( gltf3.scene );
                                     
@@ -264,33 +264,33 @@
                 } );
         
                 }
-                { 
-                    new RGBELoader()
-                    .setDataType( THREE.UnsignedByteType )
-                    .setPath( 'textures/equirectangular/' )
-                    .load( 'pedestrian_overpass_2k.hdr', function ( texture ) {
+                // { 
+                //     new RGBELoader()
+                //     .setDataType( THREE.UnsignedByteType )
+                //     .setPath( 'textures/equirectangular/' )
+                //     .load( 'pedestrian_overpass_2k.hdr', function ( texture ) {
             
-                    var options = {
-                    minFilter: texture.minFilter,
-                    magFilter: texture.magFilter
-                    };				
-                    var loader = new GLTFLoader().setPath( 'models/gltf/house/' );
-                    loader.load( 'scene.gltf', function ( gltf4 ) {
+                //     var options = {
+                //     minFilter: texture.minFilter,
+                //     magFilter: texture.magFilter
+                //     };				
+                //     var loader = new GLTFLoader().setPath( 'models/gltf/house/' );
+                //     loader.load( 'scene.gltf', function ( gltf4 ) {
             
-                    gltf4.scene.traverse( function ( child ) {
+                //     gltf4.scene.traverse( function ( child ) {
             
             
-                    } );
+                //     } );
             
-                     gltf4.scene.scale.set(5,5,5)
-                     gltf4.scene.position.set(20000,200,500);
+                //      gltf4.scene.scale.set(5,5,5)
+                //      gltf4.scene.position.set(20000,200,500);
             
-                    scene.add( gltf4.scene );
+                //     scene.add( gltf4.scene );
                                         
-                    } );
-                    } );
+                //     } );
+                //     } );
             
-                    }
+                //     }
 		
 		//Control
 		{ 
