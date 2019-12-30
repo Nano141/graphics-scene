@@ -10,8 +10,8 @@
 
 		var container, stats,clock;
 		var camera, scene, renderer, light,ambient_light;
-		var controls, water;
-		var mixer,mesh,mesh2,mesh3,mesh4,mesh5;
+		var controls, water,shark,phoenix,tree;
+		var mixer,mixer2,mesh,mesh2,mesh3,mesh4,mesh5;
 
 		init();
 		animate();
@@ -22,7 +22,7 @@
 
 		//
 
-		renderer = new THREE.WebGLRenderer({ antialias: true });
+		renderer = new THREE.WebGLRenderer({ antialias: true,powerPreference: "high-performance" });
 				renderer.setPixelRatio( window.devicePixelRatio );
 				renderer.setSize( window.innerWidth, window.innerHeight );
 				container.appendChild( renderer.domElement );
@@ -33,8 +33,8 @@
 
 				//
 
-				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 2000000 );
-				camera.position.set( -1000, 250, 150 );
+				camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 1, 200000 );
+				camera.position.set( -500, 300, 150 );
 
 				//
 
@@ -45,13 +45,13 @@
 
 		// Water
 		{ 
-			var waterGeometry = new THREE.PlaneBufferGeometry( 10000000, 10000000 );
+			var waterGeometry = new THREE.PlaneBufferGeometry( 10000000, 10000000 , 10 , 10 );
 
 			water = new Water(
 			waterGeometry,
 					{
-						textureWidth: 1920,
-						textureHeight: 1080,
+						textureWidth: 4096,
+						textureHeight: 2160,
 						waterNormals: new THREE.TextureLoader().load( 'textures/water/waternormals.jpg', function ( texture ) {
 
 							texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
@@ -121,7 +121,7 @@
     		objLoader2.load('models/obj/Airplane/Airplane.obj', (root2) => {
 				//root2.scale.set(-10,-10,-10);
 				root2.rotation.x = -190;
-				root2.position.set(1000,5000,1000);
+				root2.position.set(1000,6000,1000);
 				mesh2 = root2;
 				scene.add(root2);
 			  });
@@ -153,18 +153,20 @@
 			  });
 		  });
 		  // Object 5
-		  const mtlLoader5 = new MTLLoader();
-  			mtlLoader5.load('models/obj/Small Tropical Island/Small_Tropical_Island.mtl', (mtlParseResult5) => {
-    		const materials5 =  MtlObjBridge.addMaterialsFromMtlLoader(mtlParseResult5);
-			const objLoader5 = new OBJLoader2();
-			objLoader5.addMaterials(materials5);
-    		objLoader5.load('models/obj/Small Tropical Island/Small Tropical Island.obj', (root5) => {
-				root5.scale.set(40,40,40);
-				root5.position.set(40000,-5,0);
-				mesh5 = root5;
-				scene.add(root5);
-			  });
-		  });
+		//   const mtlLoader5 = new MTLLoader();
+  		// 	mtlLoader5.load('models/obj/Small Tropical Island/Small_Tropical_Island.mtl', (mtlParseResult5) => {
+        //     const materials5 =  MtlObjBridge.addMaterialsFromMtlLoader(mtlParseResult5);
+        //     materials5.polygonOffset = true;
+        //     materials5.polygonOffsetFactor = -0.1;
+		// 	const objLoader5 = new OBJLoader2();
+		// 	objLoader5.addMaterials(materials5);
+    	// 	objLoader5.load('models/obj/Small Tropical Island/Small Tropical Island.obj', (root5) => {
+		// 		root5.scale.set(10,10,10);
+		// 		root5.position.set(40000,-30,0);
+		// 		mesh5 = root5;
+		// 		scene.add(root5);
+		// 	  });
+		//   });
 		}
 
 		
@@ -191,15 +193,104 @@
 		var action = mixer.clipAction( gltf.animations[ 0 ] );
 		action.play();
 
-		gltf.scene.scale.set(40,40,40)
-		gltf.scene.position.y = -40;
+		gltf.scene.scale.set(50,50,50)
+        gltf.scene.position.y = -35;
+        shark = gltf.scene;
+        shark.rotation.y = 80;
 
 		scene.add( gltf.scene );
 							
 		} );
 		} );
 
-		}
+        }
+        { 
+            new RGBELoader()
+            .setDataType( THREE.UnsignedByteType )
+            .setPath( 'textures/equirectangular/' )
+            .load( 'pedestrian_overpass_2k.hdr', function ( texture ) {
+    
+            var options = {
+            minFilter: texture.minFilter,
+            magFilter: texture.magFilter
+            };				
+            var loader = new GLTFLoader().setPath( 'models/gltf/phoenix/' );
+            loader.load( 'scene.gltf', function ( gltf2 ) {
+    
+            gltf2.scene.traverse( function ( child ) {
+    
+    
+            } );
+    
+            mixer2 = new THREE.AnimationMixer( gltf2.scene );
+            var action = mixer2.clipAction( gltf2.animations[ 0 ] );
+            action.play();
+    
+             gltf2.scene.scale.set(0.3,0.3,0.3)
+             gltf2.scene.position.set(0,600,300);
+             phoenix = gltf2.scene;
+             phoenix.rotation.y = 0;
+    
+            scene.add( gltf2.scene );
+                                
+            } );
+            } );
+    
+            }
+            { 
+                new RGBELoader()
+                .setDataType( THREE.UnsignedByteType )
+                .setPath( 'textures/equirectangular/' )
+                .load( 'pedestrian_overpass_2k.hdr', function ( texture ) {
+        
+                var options = {
+                minFilter: texture.minFilter,
+                magFilter: texture.magFilter
+                };				
+                var loader = new GLTFLoader().setPath( 'models/gltf/treehouse/' );
+                loader.load( 'scene.gltf', function ( gltf3 ) {
+        
+                gltf3.scene.traverse( function ( child ) {
+        
+        
+                } );
+        
+                 gltf3.scene.scale.set(60,60,60)
+                 gltf3.scene.position.set(20000,0,0);
+        
+                scene.add( gltf3.scene );
+                                    
+                } );
+                } );
+        
+                }
+                { 
+                    new RGBELoader()
+                    .setDataType( THREE.UnsignedByteType )
+                    .setPath( 'textures/equirectangular/' )
+                    .load( 'pedestrian_overpass_2k.hdr', function ( texture ) {
+            
+                    var options = {
+                    minFilter: texture.minFilter,
+                    magFilter: texture.magFilter
+                    };				
+                    var loader = new GLTFLoader().setPath( 'models/gltf/house/' );
+                    loader.load( 'scene.gltf', function ( gltf4 ) {
+            
+                    gltf4.scene.traverse( function ( child ) {
+            
+            
+                    } );
+            
+                     gltf4.scene.scale.set(5,5,5)
+                     gltf4.scene.position.set(20000,200,500);
+            
+                    scene.add( gltf4.scene );
+                                        
+                    } );
+                    } );
+            
+                    }
 		
 		//Control
 		{ 
@@ -234,7 +325,8 @@
 
 		var delta = clock.getDelta();
 
-		if ( mixer ) mixer.update( delta );
+        if ( mixer ) mixer.update( delta );
+        if ( mixer2 ) mixer2.update( delta );
 
 		render( scene, camera );
 
@@ -243,17 +335,20 @@
 		}
 			
 	function render() {
+        
 
 		var time = performance.now() * 0.001;
 
-		mesh.rotation.y += 0.01;
+		mesh.rotation.y += 0.005;
 		mesh.position.x += 1;
 		mesh2.position.x += 10;
 		mesh3.position.z -= 20;
-		mesh4.position.x -= 2;
+        mesh4.position.x -= 2;
+        shark.position.x -= 2.5;
+        phoenix.position.x += 3.5;
 
-		water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
-
+        water.material.uniforms[ 'time' ].value += 1.0 / 60.0;
+        
 		renderer.render( scene, camera );
 
 		}
