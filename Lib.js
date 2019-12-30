@@ -1,22 +1,16 @@
-import * as THREE from '../build/three.module.js';
-
+        import * as THREE from '../build/three.module.js';
 		import Stats from './jsm/libs/stats.module.js';
-
-		import { GUI } from './jsm/libs/dat.gui.module.js';
 		import { OrbitControls } from './jsm/controls/OrbitControls.js';
 		import { Water } from './jsm/objects/Water.js';
-		import { Sky } from './jsm/objects/Sky.js';
 		import { GLTFLoader } from './jsm/loaders/GLTFLoader.js';
 		import { RGBELoader } from './jsm/loaders/RGBELoader.js';
-		import { PMREMGenerator } from './jsm/pmrem/PMREMGenerator.js';
-		import { PMREMCubeUVPacker } from './jsm/pmrem/PMREMCubeUVPacker.js';
 		import {OBJLoader2} from './jsm/loaders/OBJLoader2.js';
 		import {MTLLoader} from './jsm/loaders/MTLLoader.js';
 		import {MtlObjBridge} from './jsm/loaders/obj2/bridge/MtlObjBridge.js';
 
 		var container, stats,clock;
 		var camera, scene, renderer, light,ambient_light;
-		var controls, water, sphere;
+		var controls, water;
 		var mixer,mesh,mesh2,mesh3,mesh4,mesh5;
 
 		init();
